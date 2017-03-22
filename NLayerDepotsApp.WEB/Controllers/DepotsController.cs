@@ -34,5 +34,30 @@ namespace NLayerDepotsApp.WEB.Controllers
             var depotsInfo = Mapper.Map<IEnumerable<DepotsInfoDTO>,List<DepotsInfoViewModel>>(depotsInfoDto);
             return View(depotsInfo);
         }
+
+        public ActionResult Select()
+        {
+            IEnumerable<DepotDTO> depotsDto = depotService.GetDepots();
+            Mapper.Initialize(cfg => cfg.CreateMap<DepotDTO, DepotViewModel>());
+            var depots = Mapper.Map<IEnumerable<DepotDTO>, List<DepotViewModel>>(depotsDto);
+            return View(depots);
+        }
+
+        public ActionResult Send(int? id)
+        {
+            if(id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var availableDrugTypesDto = depotService.GetDrugTypesInDepot(id);
+            Mapper.Initialize(cfg => cfg.CreateMap<QuantityDrugTypeDTO, QuantityDrugTypeViewModel>());
+            var availableDrugTypes = Mapper.Map<IEnumerable<QuantityDrugTypeDTO>, List<QuantityDrugTypeViewModel>>(availableDrugTypesDto);
+            return View(new DrugTypesInDepotViewModel
+                        {
+                            DepotId = (int)id,
+                            AvailableDrugTypes = availableDrugTypes
+                         });
+        }
     }
 }

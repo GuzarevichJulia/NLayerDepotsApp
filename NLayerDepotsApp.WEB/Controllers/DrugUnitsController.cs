@@ -28,6 +28,7 @@ namespace NLayerDepotsApp.WEB.Controllers
             return View(drugUnits);
         }
 
+        [HttpGet]
         public ActionResult EditDrugUnit(string id)
         {
             /*DrugUnitDTO drugUnitDto = drugUnitService.GetDrugUnit(id);

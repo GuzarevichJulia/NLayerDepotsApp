@@ -84,6 +84,7 @@
     <Compile Include="DTO\DepotDTO.cs" />
     <Compile Include="DTO\DepotsInfoDTO.cs" />
     <Compile Include="DTO\DrugUnitDTO.cs" />
+    <Compile Include="DTO\QuantityDrugTypeDTO.cs" />
     <Compile Include="DTO\WeightInfoDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IDepotService.cs" />

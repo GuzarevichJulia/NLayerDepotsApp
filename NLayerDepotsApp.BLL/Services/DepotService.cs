@@ -52,5 +52,12 @@ namespace NLayerDepotsApp.BLL.Services
             Mapper.Initialize(cfg => cfg.CreateMap<WeightInfo, WeightInfoDTO>());
             return Mapper.Map<List<WeightInfo>, List<WeightInfoDTO>>(weightInfo);
         }
+
+        public IEnumerable<QuantityDrugTypeDTO> GetDrugTypesInDepot(int? id)
+        {
+            var drugTypesInDepot = Database.Depots.GetAvailableDrugTypesInDepot(id);
+            Mapper.Initialize(cfg => cfg.CreateMap<QuantityDrugType, QuantityDrugTypeDTO>());
+            return Mapper.Map<IEnumerable<QuantityDrugType>, List<QuantityDrugTypeDTO>>(drugTypesInDepot);
+        }
     }
 }
