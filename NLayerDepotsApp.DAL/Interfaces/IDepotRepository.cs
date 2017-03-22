@@ -14,5 +14,7 @@ namespace NLayerDepotsApp.DAL.Interfaces
         void Create(Depot item);
         void Update(Depot item);
         void Delete(int id);
+        IQueryable<WeightInfo> GetTypesWeight();
+        IQueryable<DepotsInfo> GetDrugUnitsFromDepots();
     }
 }

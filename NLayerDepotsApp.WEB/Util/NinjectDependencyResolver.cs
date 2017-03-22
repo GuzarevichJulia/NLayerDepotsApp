@@ -30,7 +30,8 @@ namespace NLayerDepotsApp.WEB.Util
 
         private void AddBindings()
         {
-            kernel.Bind<IService>().To<DrugUnitService>();
+            kernel.Bind<IDrugUnitService>().To<DrugUnitService>();
+            kernel.Bind<IDepotService>().To<DepotService>();
         }
     }
 }

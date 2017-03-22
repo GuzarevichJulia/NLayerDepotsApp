@@ -30,7 +30,7 @@ namespace NLayerDepotsApp.DAL.Repositories
             }
         }
 
-        /*public IQueryable<WeightView> GetTypesWeights()
+        public IQueryable<WeightInfo> GetTypesWeight()
         {
             return from du in db.DrugUnit
                    where du.DepotId != null
@@ -40,7 +40,7 @@ namespace NLayerDepotsApp.DAL.Repositories
                        du.DrugType.DrugTypeName,
                        du.DrugType.DrugTypeWeight
                    } into g
-                   select new WeightView()
+                   select new WeightInfo()
                    {
                        DepotName = g.Key.DepotName,
                        DrugTypeName = g.Key.DrugTypeName,
@@ -49,14 +49,21 @@ namespace NLayerDepotsApp.DAL.Repositories
                    };
         }
 
-        public IQueryable<DepotDrugUnitView> GetDrugUnitsFromDepots()
+        public IQueryable<DepotsInfo> GetDrugUnitsFromDepots()
         {
             return from depot in entity
                    join drugUnit in db.DrugUnit
                    on depot.DepotId equals drugUnit.DepotId into Joined
                    from drugUnit in Joined.DefaultIfEmpty()
-                   select new DepotDrugUnitView { Depot = depot, DrugUnit = drugUnit != null ? drugUnit : null };
-        }*/
+                   select new DepotsInfo
+                   {
+                       DepotName = depot.DepotName,
+                       CountryName = depot.Country.CountryName,
+                       DrugTypeName = drugUnit.DrugType.DrugTypeName,
+                       PickNumber = drugUnit.PickNumber,
+                       DrugUnitId = drugUnit != null ? drugUnit.DrugUnitId : null
+                   };
+        }
 
     }
 }

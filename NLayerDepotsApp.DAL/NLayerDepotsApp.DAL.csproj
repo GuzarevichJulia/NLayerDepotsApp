@@ -55,9 +55,11 @@
     <Compile Include="EF\C__MigrationHistory.cs" />
     <Compile Include="Entities\Depot.cs" />
     <Compile Include="EF\DrugsContext.cs" />
+    <Compile Include="Entities\DepotsInfo.cs" />
     <Compile Include="Entities\DrugType.cs" />
     <Compile Include="Entities\DrugUnit.cs" />
     <Compile Include="Entities\SupplyCountry.cs" />
+    <Compile Include="Entities\WeightInfo.cs" />
     <Compile Include="Interfaces\IDepotRepository.cs" />
     <Compile Include="Interfaces\IDrugUnitRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
