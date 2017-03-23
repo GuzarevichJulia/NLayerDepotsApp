@@ -14,5 +14,7 @@ namespace NLayerDepotsApp.BLL.Interfaces
         IEnumerable<DepotsInfoDTO> GetDepotsInfo();
         IEnumerable<WeightInfoDTO> GetWeightInfo();
         IEnumerable<QuantityDrugTypeDTO> GetDrugTypesInDepot(int? id);
+        ShipmentDTO SendDrugUnits(IEnumerable<QuantityDrugTypeDTO> drugTypes, int depotId);
+        void Dispose();
     }
 }

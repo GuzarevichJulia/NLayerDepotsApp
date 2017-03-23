@@ -59,5 +59,18 @@ namespace NLayerDepotsApp.BLL.Services
             Mapper.Initialize(cfg => cfg.CreateMap<QuantityDrugType, QuantityDrugTypeDTO>());
             return Mapper.Map<IEnumerable<QuantityDrugType>, List<QuantityDrugTypeDTO>>(drugTypesInDepot);
         }
+
+        public ShipmentDTO SendDrugUnits(IEnumerable<QuantityDrugTypeDTO> drugTypes, int depotId)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<QuantityDrugTypeDTO, QuantityDrugType>());
+            var drygTypes = Mapper.Map<IEnumerable<QuantityDrugTypeDTO>, List<QuantityDrugType>>(drugTypes);
+            var shipment = Database.Depots.Send(drygTypes, depotId);
+            Mapper.Initialize(cfg => cfg.CreateMap<Shipment, ShipmentDTO>());
+            return Mapper.Map<Shipment, ShipmentDTO>(shipment);
+        }
+        public void Dispose()
+        {
+            Database.Dispose();
+        }
     }
 }

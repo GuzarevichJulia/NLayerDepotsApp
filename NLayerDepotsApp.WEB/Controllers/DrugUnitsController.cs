@@ -31,9 +31,6 @@ namespace NLayerDepotsApp.WEB.Controllers
         [HttpGet]
         public ActionResult EditDrugUnit(string id)
         {
-            /*DrugUnitDTO drugUnitDto = drugUnitService.GetDrugUnit(id);
-            Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitDTO, DrugUnitViewModel>());
-            var drugUnit = Mapper.Map<DrugUnitDTO, DrugUnitViewModel>(drugUnitDto);*/
             var editingDrugUnit = new EditingDrugUnitViewModel
             {
                 DepotsList = drugUnitService.GetDepotsList(),

@@ -59,6 +59,7 @@
     <Compile Include="Entities\DrugType.cs" />
     <Compile Include="Entities\DrugUnit.cs" />
     <Compile Include="Entities\QuantityDrugType.cs" />
+    <Compile Include="Entities\Shipment.cs" />
     <Compile Include="Entities\SupplyCountry.cs" />
     <Compile Include="Entities\WeightInfo.cs" />
     <Compile Include="Interfaces\IDepotRepository.cs" />

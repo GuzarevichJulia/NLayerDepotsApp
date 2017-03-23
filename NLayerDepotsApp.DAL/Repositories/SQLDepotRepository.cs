@@ -78,44 +78,38 @@ namespace NLayerDepotsApp.DAL.Repositories
                     }).Distinct().ToList();
         }
 
-        /*public Shipment Send(DrugTypesInDepot drugTypesInDepot)
-        {
-            var drugUnits = (from d in entity
-                             where d.DepotId == drugTypesInDepot.DepotId
+        public Shipment Send(IEnumerable<QuantityDrugType> drugTypesInDepot, int depotId)
+        {           
+            var drugUnits = (from d in db.DrugUnit
+                             where d.DepotId == depotId
                              where d.Shipped == false
                              select d).ToList();
 
+            Dictionary<int, List<DrugUnit>> drugUnitsByTypes = drugUnits.GroupBy(o => o.DrugTypeId)
+                                                .ToDictionary(g => g.Key, g => g.ToList());
 
             var shippedDrugUnitsId = new List<string>();
             var unshippedDrugUnits = new Dictionary<string, int>();
 
-            foreach (var d in drugTypesInDepot.AvailableDrugTypes)
+            foreach (var d in drugTypesInDepot)
             {
-                var drugUnitWithType = (from t in drugUnits
-                                        where t.DrugTypeId == d.DrugTypeId
-                                        select t).ToList();
+                if (d.Quantity > 0)
+                {
+                    int shippedCount = d.Quantity;
+                    int unshippedCount = 0;
 
-                int shippedCount;
-                int unshippedCount = 0;
-                if (d.Quantity < 0)
-                {
-                    shippedCount = 0;
-                }
-                if ((drugUnitWithType.Count - d.Quantity) < 0)
-                {
-                    shippedCount = drugUnitWithType.Count;
-                    unshippedCount = d.Quantity - drugUnitWithType.Count;
-                    unshippedDrugUnits.Add(d.DrugTypeName, unshippedCount);
-                }
-                else
-                {
-                    shippedCount = d.Quantity;
-                }
+                    if ((drugUnitsByTypes[d.DrugTypeId].Count - d.Quantity) < 0)
+                    {
+                        shippedCount = drugUnitsByTypes[d.DrugTypeId].Count;
+                        unshippedCount = d.Quantity - drugUnitsByTypes[d.DrugTypeId].Count;
+                        unshippedDrugUnits.Add(d.DrugTypeName, unshippedCount);
+                    }                    
 
-                for (int i = 0; i < shippedCount; i++)
-                {
-                    drugUnitWithType[i].Shipped = true;
-                    shippedDrugUnitsId.Add(drugUnitWithType[i].DrugUnitId);
+                    for (int i = 0; i < shippedCount; i++)
+                    {
+                        drugUnitsByTypes[d.DrugTypeId][i].Shipped = true;
+                        shippedDrugUnitsId.Add(drugUnitsByTypes[d.DrugTypeId][i].DrugUnitId);
+                    }
                 }
             }
             db.SaveChanges();
@@ -125,7 +119,7 @@ namespace NLayerDepotsApp.DAL.Repositories
                 Shipped = shippedDrugUnitsId,
                 Unshipped = unshippedDrugUnits
             };
-        }*/
+        }
 
     }
 }

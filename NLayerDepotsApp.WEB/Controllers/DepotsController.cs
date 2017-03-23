@@ -43,6 +43,7 @@ namespace NLayerDepotsApp.WEB.Controllers
             return View(depots);
         }
 
+        [HttpGet]
         public ActionResult Send(int? id)
         {
             if(id == null)
@@ -58,6 +59,17 @@ namespace NLayerDepotsApp.WEB.Controllers
                             DepotId = (int)id,
                             AvailableDrugTypes = availableDrugTypes
                          });
+        }
+
+        [HttpPost]
+        public ActionResult Send(DrugTypesInDepotViewModel drugTypesInDepot)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<QuantityDrugTypeViewModel, QuantityDrugTypeDTO>());
+            var drugTypesDto = Mapper.Map<IEnumerable<QuantityDrugTypeViewModel>, List<QuantityDrugTypeDTO>>(drugTypesInDepot.AvailableDrugTypes);
+            var shimpentDto = depotService.SendDrugUnits(drugTypesDto, drugTypesInDepot.DepotId);
+            Mapper.Initialize(cfg => cfg.CreateMap<ShipmentDTO, ShipmentViewModel>());
+            var shipment = Mapper.Map<ShipmentDTO, ShipmentViewModel>(shimpentDto);
+            return View("Shipment", shipment);
         }
     }
 }
