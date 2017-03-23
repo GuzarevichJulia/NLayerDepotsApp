@@ -2,6 +2,7 @@
 using NLayerDepotsApp.BLL.DTO;
 using NLayerDepotsApp.BLL.Interfaces;
 using NLayerDepotsApp.DAL.Entities;
+using NLayerDepotsApp.DAL.Models;
 using NLayerDepotsApp.DAL.Interfaces;
 using System;
 using System.Collections.Generic;

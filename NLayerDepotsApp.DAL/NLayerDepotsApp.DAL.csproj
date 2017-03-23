@@ -55,13 +55,13 @@
     <Compile Include="EF\C__MigrationHistory.cs" />
     <Compile Include="Entities\Depot.cs" />
     <Compile Include="EF\DrugsContext.cs" />
-    <Compile Include="Entities\DepotsInfo.cs" />
+    <Compile Include="Models\DepotsInfo.cs" />
     <Compile Include="Entities\DrugType.cs" />
     <Compile Include="Entities\DrugUnit.cs" />
-    <Compile Include="Entities\QuantityDrugType.cs" />
-    <Compile Include="Entities\Shipment.cs" />
+    <Compile Include="Models\QuantityDrugType.cs" />
+    <Compile Include="Models\Shipment.cs" />
     <Compile Include="Entities\SupplyCountry.cs" />
-    <Compile Include="Entities\WeightInfo.cs" />
+    <Compile Include="Models\WeightInfo.cs" />
     <Compile Include="Interfaces\IDepotRepository.cs" />
     <Compile Include="Interfaces\IDrugUnitRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

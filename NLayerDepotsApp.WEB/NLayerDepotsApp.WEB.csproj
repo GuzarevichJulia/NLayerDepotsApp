@@ -183,6 +183,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DepotsController.cs" />
     <Compile Include="Controllers\DrugUnitsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,7 @@
     <Compile Include="Models\EditingDrugUnitViewModel.cs" />
     <Compile Include="Models\QuantityDrugTypeViewModel.cs" />
     <Compile Include="Models\ShipmentViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WeightInfoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\NinjectDependencyResolver.cs" />
@@ -239,6 +241,8 @@
     <Content Include="Views\Depots\Select.cshtml" />
     <Content Include="Views\Depots\Send.cshtml" />
     <Content Include="Views\Depots\Shipment.cshtml" />
+    <Content Include="Views\Users\SignUp.cshtml" />
+    <Content Include="Views\Users\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

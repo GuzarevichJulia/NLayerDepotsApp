@@ -1,5 +1,6 @@
 ﻿using NLayerDepotsApp.DAL.EF;
 using NLayerDepotsApp.DAL.Entities;
+using NLayerDepotsApp.DAL.Models;
 using NLayerDepotsApp.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,23 +14,9 @@ namespace NLayerDepotsApp.DAL.Repositories
     {
         public SQLDepotRepository(DrugsContext context) : base(context)
         {
-            entity = db.Depot;
-        }
-
-        public Depot GetById(int id)
-        {
-            return entity.Find(id);
-        }
-
-        public void Delete(int id)
-        {
-            Depot depot = entity.Find(id);
-            if (depot != null)
-            {
-                entity.Remove(depot);
-            }
-        }
-
+            dbSet = db.Depot;
+        }     
+          
         public IQueryable<WeightInfo> GetTypesWeight()
         {
             return from du in db.DrugUnit
@@ -51,7 +38,7 @@ namespace NLayerDepotsApp.DAL.Repositories
 
         public IQueryable<DepotsInfo> GetDrugUnitsFromDepots()
         {
-            return from depot in entity
+            return from depot in dbSet
                    join drugUnit in db.DrugUnit
                    on depot.DepotId equals drugUnit.DepotId into Joined
                    from drugUnit in Joined.DefaultIfEmpty()

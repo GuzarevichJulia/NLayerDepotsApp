@@ -11,26 +11,41 @@ namespace NLayerDepotsApp.DAL.Repositories
     public abstract class SQLBaseRepository<TEntity> where TEntity : class
     {
         protected DrugsContext db;
-        protected DbSet<TEntity> entity;
+        protected DbSet<TEntity> dbSet;
 
         public SQLBaseRepository(DrugsContext context)
         {
             this.db = context;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
-            return entity;
+            return dbSet;
         }
 
-        public void Create(TEntity item)
+        public virtual TEntity GetById(object id)
         {
-            entity.Add(item);
+            return dbSet.Find(id);
         }
 
-        public void Update(TEntity item)
+        public virtual void Create(TEntity item)
         {
+            dbSet.Add(item);
+        }
+
+        public virtual void Update(TEntity item)
+        {
+            dbSet.Attach(item);
             db.Entry(item).State = EntityState.Modified;
+        }
+
+        public virtual void Delete(object id)
+        {
+            TEntity entity = dbSet.Find(id);
+            if (entity != null)
+            {
+                dbSet.Remove(entity);
+            }
         }
     }
 }

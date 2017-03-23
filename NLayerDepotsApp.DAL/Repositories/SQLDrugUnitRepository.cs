@@ -13,26 +13,12 @@ namespace NLayerDepotsApp.DAL.Repositories
     {
         public SQLDrugUnitRepository(DrugsContext context) : base(context)
         {
-            entity = db.DrugUnit;
-        }
-
-        public DrugUnit GetById(string id)
-        {
-            return entity.Find(id);
-        }
-
-        public void Delete(string id)
-        {
-            DrugUnit drugUnit = entity.Find(id);
-            if (drugUnit != null)
-            {
-                entity.Remove(drugUnit);
-            }
-        }
+            dbSet = db.DrugUnit;
+        }      
 
         public IQueryable<DrugUnit> GetAvailableDrugUnitsFromDepot(int depotId)
         {
-            return from d in entity
+            return from d in dbSet
                    where d.DepotId == depotId
                    where d.Shipped == false
                    select d;
