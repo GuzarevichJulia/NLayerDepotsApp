@@ -15,18 +15,18 @@
             </tr>
         </thead>
         @foreach (var d in Model)
-            {
+        {
             <tr>
-                <td><p>   @d.DrugUnitId</p></td>
+                <td><p>@d.DrugUnitId</p></td>
                 @if (d.DepotName != null)
                 {
-                    <td><p>   @d.DepotName</p></td>
+                    <td><p>@d.DepotName</p></td>
                 }
                 else
                 {
-                    <td><p> --- </p></td>
+                    <td><p>---</p></td>
                 }
-                <td><p>   @d.DrugTypeName</p></td>
+                <td><p>@d.DrugTypeName</p></td>
                 <td>@Html.ActionLink("Edit depot", "EditDrugUnit", new { id = d.DrugUnitId })</td>
             </tr>
         }

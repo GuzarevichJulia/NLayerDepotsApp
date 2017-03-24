@@ -13,8 +13,7 @@ namespace NLayerDepotsApp.DAL.EF
         {
             Database.SetInitializer<DrugsContext>(new CreateDatabaseIfNotExists<DrugsContext>());
         }
-
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Depot> Depot { get; set; }
         public virtual DbSet<DrugType> DrugType { get; set; }

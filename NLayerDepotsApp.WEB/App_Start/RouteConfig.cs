@@ -16,7 +16,7 @@ namespace NLayerDepotsApp.WEB
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "DrugUnits", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "DrugUnits", action = "Display", id = UrlParameter.Optional }
             );
         }
     }

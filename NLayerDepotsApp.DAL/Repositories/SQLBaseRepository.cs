@@ -41,10 +41,11 @@ namespace NLayerDepotsApp.DAL.Repositories
 
         public virtual void Delete(object id)
         {
-            TEntity entity = dbSet.Find(id);
-            if (entity != null)
+            TEntity item = dbSet.Find(id);
+            if (item != null)
             {
-                dbSet.Remove(entity);
+                dbSet.Attach(item);
+                dbSet.Remove(item);
             }
         }
     }

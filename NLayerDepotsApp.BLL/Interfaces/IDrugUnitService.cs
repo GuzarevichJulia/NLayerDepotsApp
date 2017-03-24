@@ -10,8 +10,9 @@ namespace NLayerDepotsApp.BLL.Interfaces
 {
     public interface IDrugUnitService
     {
-        IEnumerable<DrugUnitDTO> GetDrugUnits();
+        IEnumerable<DrugUnitDTO> GetDrugUnits(int skipCount = 0, int? drugUnitCount = null);
         DrugUnitDTO GetDrugUnit(string id);
+        int GetDrugUnitsCount();
         SelectList GetDepotsList();
         void Edit(DrugUnitDTO drugUnitDto);
         void Dispose();

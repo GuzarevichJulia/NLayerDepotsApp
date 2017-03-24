@@ -21,7 +21,7 @@ namespace NLayerDepotsApp.DAL.Repositories
         {
             return from du in db.DrugUnit
                    where du.DepotId != null
-                   group new { du.Depot, du.DrugType, du } by new
+                   group new { du.Depot.DepotId, du.DrugType.DrugTypeId, du.DrugUnitId} by new
                    {
                        du.Depot.DepotName,
                        du.DrugType.DrugTypeName,
@@ -32,7 +32,7 @@ namespace NLayerDepotsApp.DAL.Repositories
                        DepotName = g.Key.DepotName,
                        DrugTypeName = g.Key.DrugTypeName,
                        DrugTypeWeight = g.Key.DrugTypeWeight,
-                       Count = g.Count(p => p.du.DrugUnitId != null)
+                       Count = g.Count(p => p.DrugUnitId != null)
                    };
         }
 
@@ -56,7 +56,7 @@ namespace NLayerDepotsApp.DAL.Repositories
         {
             return (from d in db.DrugUnit
                     where d.DepotId == depotId
-                    where d.Shipped == false
+                        && !d.Shipped
                     select new QuantityDrugType()
                     {
                         DrugTypeName = d.DrugType.DrugTypeName,
@@ -66,12 +66,28 @@ namespace NLayerDepotsApp.DAL.Repositories
         }
 
         public Shipment Send(IEnumerable<QuantityDrugType> drugTypesInDepot, int depotId)
-        {           
+        {
             var drugUnits = (from d in db.DrugUnit
                              where d.DepotId == depotId
-                             where d.Shipped == false
+                                && !d.Shipped
                              select d).ToList();
+            var shipment = GetDrugUnitsForSending(drugUnits, drugTypesInDepot);
+            SaveChanges(drugUnits, shipment.ShippedList);
 
+            return shipment;
+        }
+
+        private void SaveChanges(IEnumerable<DrugUnit> drugUnits, IEnumerable<String> shippedDrugUnitsId)
+        {
+            foreach(var id in shippedDrugUnitsId)
+            {
+                var x = drugUnits.First(d => d.DrugUnitId == id).Shipped = true;
+            }
+            db.SaveChanges();
+        }
+
+        private Shipment GetDrugUnitsForSending(IEnumerable<DrugUnit> drugUnits, IEnumerable<QuantityDrugType> drugTypesInDepot)
+        {          
             Dictionary<int, List<DrugUnit>> drugUnitsByTypes = drugUnits.GroupBy(o => o.DrugTypeId)
                                                 .ToDictionary(g => g.Key, g => g.ToList());
 
@@ -90,21 +106,18 @@ namespace NLayerDepotsApp.DAL.Repositories
                         shippedCount = drugUnitsByTypes[d.DrugTypeId].Count;
                         unshippedCount = d.Quantity - drugUnitsByTypes[d.DrugTypeId].Count;
                         unshippedDrugUnits.Add(d.DrugTypeName, unshippedCount);
-                    }                    
+                    }
 
                     for (int i = 0; i < shippedCount; i++)
                     {
-                        drugUnitsByTypes[d.DrugTypeId][i].Shipped = true;
                         shippedDrugUnitsId.Add(drugUnitsByTypes[d.DrugTypeId][i].DrugUnitId);
                     }
                 }
             }
-            db.SaveChanges();
-
             return new Shipment
             {
-                Shipped = shippedDrugUnitsId,
-                Unshipped = unshippedDrugUnits
+                ShippedList = shippedDrugUnitsId,
+                UnshippedDictionary = unshippedDrugUnits
             };
         }
 

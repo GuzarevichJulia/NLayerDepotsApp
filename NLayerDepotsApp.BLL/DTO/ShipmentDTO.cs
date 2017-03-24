@@ -8,7 +8,7 @@ namespace NLayerDepotsApp.BLL.DTO
 {
     public class ShipmentDTO
     {
-        public List<string> Shipped { get; set; }
-        public Dictionary<string, int> Unshipped { get; set; }
+        public List<string> ShippedList { get; set; }
+        public Dictionary<string, int> UnshippedDictionary { get; set; }
     }
 }

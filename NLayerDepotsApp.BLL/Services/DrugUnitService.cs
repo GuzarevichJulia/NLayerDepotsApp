@@ -40,12 +40,24 @@ namespace NLayerDepotsApp.BLL.Services
             Database.Save();
         }
 
-        public IEnumerable<DrugUnitDTO> GetDrugUnits()
+        public IEnumerable<DrugUnitDTO> GetDrugUnits(int skipCount, int? drugUnitCount)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<DrugUnit, DrugUnitDTO>()
                             .ForMember("DepotName", opt => opt.MapFrom(src => src.Depot.DepotName))
                             .ForMember("DrugTypeName", opt => opt.MapFrom(src => src.DrugType.DrugTypeName)));
-            return Mapper.Map<List<DrugUnit>, List<DrugUnitDTO>>(Database.DrugUnits.GetAll().ToList());
+            if ((skipCount == 0) && (drugUnitCount == null))
+            {
+                return Mapper.Map<List<DrugUnit>, List<DrugUnitDTO>>(Database.DrugUnits.GetAll().ToList());
+            }
+            else
+            {
+                return Mapper.Map<List<DrugUnit>, List<DrugUnitDTO>>(Database.DrugUnits.GetDrugUnits(skipCount,(int)drugUnitCount).ToList());
+            }
+        }
+
+        public int GetDrugUnitsCount()
+        {
+            return Database.DrugUnits.Count();
         }
 
         public DrugUnitDTO GetDrugUnit(string id)

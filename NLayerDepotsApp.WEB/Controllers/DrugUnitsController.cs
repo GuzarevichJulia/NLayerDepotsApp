@@ -20,12 +20,33 @@ namespace NLayerDepotsApp.WEB.Controllers
             drugUnitService = service;
         }
 
-        public ActionResult Index()
+        public ActionResult DisplayAll()
         {
-            IEnumerable<DrugUnitDTO> drugUnitDtos = drugUnitService.GetDrugUnits();
+            IEnumerable<DrugUnitDTO> drugUnitsDto = drugUnitService.GetDrugUnits();
             Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitDTO, DrugUnitViewModel>());
-            var drugUnits = Mapper.Map<IEnumerable<DrugUnitDTO>, List<DrugUnitViewModel>>(drugUnitDtos);
+            var drugUnits = Mapper.Map<IEnumerable<DrugUnitDTO>, List<DrugUnitViewModel>>(drugUnitsDto);
             return View(drugUnits);
+        }
+
+        public ActionResult Display(int page = 1)
+        {
+            int pageSize = 15;
+            IEnumerable<DrugUnitDTO> drugUnitsDto = drugUnitService.GetDrugUnits((page - 1) * pageSize, pageSize);
+            PageInfoViewModel pageInfo = new PageInfoViewModel
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = drugUnitService.GetDrugUnitsCount()
+            };
+
+            Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitDTO, DrugUnitViewModel>());
+            var drugUnits = Mapper.Map<IEnumerable<DrugUnitDTO>, List<DrugUnitViewModel>>(drugUnitsDto);
+            DrugUnitIndexViewModel drugUnitsIndex = new DrugUnitIndexViewModel
+            {
+                PageInfo = pageInfo,
+                DrugUnits = drugUnits
+            };
+            return View(drugUnitsIndex);
         }
 
         [HttpGet]
@@ -45,7 +66,7 @@ namespace NLayerDepotsApp.WEB.Controllers
             Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitViewModel, DrugUnitDTO>());
             var drugUnitDto = Mapper.Map<DrugUnitViewModel, DrugUnitDTO>(drugUnit);
             drugUnitService.Edit(drugUnitDto);
-            return RedirectToAction("Index");
+            return RedirectToAction("Display");
         }
     }
 }

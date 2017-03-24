@@ -9,13 +9,13 @@ namespace NLayerDepotsApp.WEB.Controllers
 {
     public class UsersController : Controller
     {
-        List<UserViewModel> users;
+        List<UserViewModel> Users { get; set; }
         
         public UsersController()
         {
-            users = new List<UserViewModel>();
-            users.Add(new UserViewModel { UserId = 1, Email = "1@mail.ru", Password = "p1", Phone = "111", UserName = "first" });
-            users.Add(new UserViewModel { UserId = 2, Email = "2@mail.ru", Password = "p2", Phone = "222", UserName = "second" });
+            Users = new List<UserViewModel>();
+            Users.Add(new UserViewModel { UserId = 1, Email = "1@mail.ru", Password = "p1", Phone = "111", UserName = "first" });
+            Users.Add(new UserViewModel { UserId = 2, Email = "2@mail.ru", Password = "p2", Phone = "222", UserName = "second" });
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@ namespace NLayerDepotsApp.WEB.Controllers
             {
                 if (!IsExist(user.UserName))
                 {
-                    users.Add(user);
+                    Users.Add(user);
                     ViewBag.Result = "User was regestered succssfull.";
                 }
                 else
@@ -45,14 +45,7 @@ namespace NLayerDepotsApp.WEB.Controllers
 
         private bool IsExist(string name)
         {
-            foreach (var u in users)
-            {
-                if (u.UserName == name)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return Users.Any(x => x.UserName == name);
         }
     }
 }

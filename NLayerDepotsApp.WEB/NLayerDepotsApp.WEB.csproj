@@ -187,11 +187,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Models\DepotsInfoViewModel.cs" />
     <Compile Include="Models\DepotViewModel.cs" />
     <Compile Include="Models\DrugTypesInDepotViewModel.cs" />
+    <Compile Include="Models\DrugUnitIndexViewModel.cs" />
     <Compile Include="Models\DrugUnitViewModel.cs" />
     <Compile Include="Models\EditingDrugUnitViewModel.cs" />
+    <Compile Include="Models\PageInfoViewModel.cs" />
     <Compile Include="Models\QuantityDrugTypeViewModel.cs" />
     <Compile Include="Models\ShipmentViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -243,6 +246,7 @@
     <Content Include="Views\Depots\Shipment.cshtml" />
     <Content Include="Views\Users\SignUp.cshtml" />
     <Content Include="Views\Users\Result.cshtml" />
+    <Content Include="Views\DrugUnits\Display.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

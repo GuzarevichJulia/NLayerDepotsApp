@@ -16,8 +16,8 @@
         @foreach (var d in Model)
             {
             <tr>
-                <td><p>   @d.DepotId</p></td>
-                <td><p>   @d.DepotName</p></td>
+                <td><p>@d.DepotId</p></td>
+                <td><p>@d.DepotName</p></td>
                 <td>@Html.ActionLink("Select depot", "Send", new { id = d.DepotId })</td>
             </tr>
         }

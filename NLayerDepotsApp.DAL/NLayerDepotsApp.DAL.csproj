@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Country.cs" />
-    <Compile Include="EF\C__MigrationHistory.cs" />
     <Compile Include="Entities\Depot.cs" />
     <Compile Include="EF\DrugsContext.cs" />
     <Compile Include="Models\DepotsInfo.cs" />

@@ -10,6 +10,8 @@ namespace NLayerDepotsApp.DAL.Interfaces
     public interface IDrugUnitRepository
     {
         IQueryable<DrugUnit> GetAll();
+        IQueryable<DrugUnit> GetDrugUnits(int skipCount, int count);
+        int Count();
         DrugUnit GetById(object id);
         void Create(DrugUnit item);
         void Update(DrugUnit item);

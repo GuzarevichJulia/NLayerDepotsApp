@@ -20,13 +20,13 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td><p>   @item.DepotName</p></td>
-                <td><p>   @item.CountryName</p></td>
+                <td><p>@item.DepotName</p></td>
+                <td><p>@item.CountryName</p></td>
                 @if (item.DrugUnitId != null)
                 {
-                    <td><p>   @item.DrugTypeName</p></td>
-                    <td><p>   @item.DrugUnitId</p></td>
-                    <td><p>   @item.PickNumber</p></td>
+                    <td><p>@item.DrugTypeName</p></td>
+                    <td><p>@item.DrugUnitId</p></td>
+                    <td><p>@item.PickNumber</p></td>
                 }
                 else
                 {

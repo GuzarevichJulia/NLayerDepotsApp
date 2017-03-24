@@ -16,11 +16,21 @@ namespace NLayerDepotsApp.DAL.Repositories
             dbSet = db.DrugUnit;
         }      
 
+        public IQueryable<DrugUnit> GetDrugUnits(int skipCount, int count)
+        {
+            return dbSet.OrderBy(d => d.DrugUnitId).Skip(skipCount).Take(count);
+        }
+
+        public int Count()
+        {
+            return dbSet.Count();
+        }
+
         public IQueryable<DrugUnit> GetAvailableDrugUnitsFromDepot(int depotId)
         {
             return from d in dbSet
                    where d.DepotId == depotId
-                   where d.Shipped == false
+                      && d.Shipped == false
                    select d;
         }        
     }

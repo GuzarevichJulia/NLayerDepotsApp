@@ -12,15 +12,15 @@
         </tr>
     </thead>
 
-    @foreach (var d in Model.Shipped)
+    @foreach (var d in Model.ShippedList)
     {
         <tr>
-            <td><p>   @d</p></td>
+            <td><p>@d</p></td>
         </tr>
     }
 </table>
 
-@if (Model.Unshipped.Count > 0)
+@if (Model.UnshippedDictionary.Count > 0)
 {
     <h2>Unshipped drug unit(s) : </h2>
     <table class="table-bordered text-center">
@@ -31,7 +31,7 @@
             </tr>
         </thead>
 
-        @foreach (var d in Model.Unshipped)
+        @foreach (var d in Model.UnshippedDictionary)
         {
             <tr>
                 <td><p>@d.Key</p></td>
