@@ -28,6 +28,7 @@ namespace NLayerDepotsApp.WEB.Controllers
             return View(drugUnits);
         }
 
+        [HttpGet]
         public ActionResult Display(int page = 1)
         {
             int pageSize = 15;
@@ -46,7 +47,20 @@ namespace NLayerDepotsApp.WEB.Controllers
                 PageInfo = pageInfo,
                 DrugUnits = drugUnits
             };
+            var defEl = new SelectListItem { Text = "Not Selected", Value = "0" };
+            List<SelectListItem> newList = drugUnitService.GetDepotsList().ToList();
+            newList.Insert(0, defEl);
+            drugUnitsIndex.DepotsList = new SelectList(newList, "Value", "Text");
+
             return View(drugUnitsIndex);
+        }
+        
+          
+        public ActionResult Edit(int? id, string drugUnitId="10")
+        {
+            drugUnitService.Edit((int)id, drugUnitId);
+            var res = 1;
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -65,7 +79,7 @@ namespace NLayerDepotsApp.WEB.Controllers
         {
             Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitViewModel, DrugUnitDTO>());
             var drugUnitDto = Mapper.Map<DrugUnitViewModel, DrugUnitDTO>(drugUnit);
-            drugUnitService.Edit(drugUnitDto);
+            drugUnitService.Edit((int)drugUnitDto.DepotId, drugUnitDto.DrugUnitId);
             return RedirectToAction("Display");
         }
     }

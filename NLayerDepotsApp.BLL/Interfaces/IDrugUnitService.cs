@@ -14,7 +14,7 @@ namespace NLayerDepotsApp.BLL.Interfaces
         DrugUnitDTO GetDrugUnit(string id);
         int GetDrugUnitsCount();
         SelectList GetDepotsList();
-        void Edit(DrugUnitDTO drugUnitDto);
+        void Edit(int id, string drugUnitId);
         void Dispose();
     }
 }

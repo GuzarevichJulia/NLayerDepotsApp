@@ -26,12 +26,12 @@ namespace NLayerDepotsApp.BLL.Services
             return new SelectList(Database.Depots.GetAll(), "DepotId", "DepotName");
         } 
 
-        public void Edit(DrugUnitDTO drugUnitDto)
+        public void Edit(int id, string drugUnitId)
         {
-            DrugUnit drugUnit = Database.DrugUnits.GetById(drugUnitDto.DrugUnitId);
-            if (drugUnitDto.DepotId != 0)
+            DrugUnit drugUnit = Database.DrugUnits.GetById(drugUnitId);
+            if (id != 0)
             {
-                drugUnit.DepotId = drugUnitDto.DepotId;
+                drugUnit.DepotId = id;
             }
             else
             {

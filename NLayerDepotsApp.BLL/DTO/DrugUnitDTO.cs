@@ -20,5 +20,6 @@ namespace NLayerDepotsApp.BLL.DTO
         public string DepotName { get; set; }
 
         public string DrugTypeName { get; set; }
+        public int? PickNumber { get; set; }
     }
 }

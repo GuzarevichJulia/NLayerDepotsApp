@@ -14,5 +14,7 @@ namespace NLayerDepotsApp.WEB.Models
         public string DepotName { get; set; }
 
         public string DrugTypeName { get; set; }
+
+        public int? PickNumber { get; set; }
     }
 }

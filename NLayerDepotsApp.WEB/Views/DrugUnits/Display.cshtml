@@ -8,32 +8,59 @@
 <table class="table-bordered text-center">
     <thead>
         <tr>
-            <th><p>Drug unit id</p></th>
-            <th><p>Depot name</p></th>
-            <th><p>Drug type</p></th>
+            <th><p>Drug Type Name</p></th>
+            <th><p>Drug Unit Id</p></th>
+            <th><p>Pick Number</p></th>
+            <th><p>Depot</p></th>
             <th><p>Action</p></th>
         </tr>
     </thead>
     @foreach (var d in Model.DrugUnits)
     {
         <tr>
+            <td><p>@d.DrugTypeName</p></td>
             <td><p>@d.DrugUnitId</p></td>
+            <td><p>@d.PickNumber</p></td>
+                       
+            <input type="hidden" value="@d.DrugUnitId" name="drugUnitId" id=@d.DrugUnitId/>
+            
             @if (d.DepotName != null)
             {
-                <td><p>@d.DepotName</p></td>
+                <td><p> @Html.DropDownList("id", Model.DepotsList, Model.DepotsList.Where(x => x.Text == d.DepotName).First().Text, new { onchange = "changeDepot(this.options[this.selectedIndex].value)" })</p></td>
             }
             else
             {
-                <td><p>---</p></td>
-            }
-            <td><p>@d.DrugTypeName</p></td>
+            <td><p> @Html.DropDownList("id", Model.DepotsList) </p></td>
+            }           
+
             <td>@Html.ActionLink("Edit depot", "EditDrugUnit", new { id = d.DrugUnitId })</td>
         </tr>
     }
 </table>
+
 <br/>
 <div class="btn-group">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("Display", new { page = x}))
 </div>
 
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+
+<script>
+function change(val)
+{
+  window.location.href="/DrugUnits/Edit?id="+val;
+}
+</script>
+
+<script>
+    function changeDepot(strSelected/*, drugUnitId*/) {
+            var url = "/DrugUnits/Edit/";
+            $.post(url, {
+                "id": strSelected//,
+               // "drugUnitId": drugUnitId
+             }, function (data) {
+            });
+        };
+</script>
 
