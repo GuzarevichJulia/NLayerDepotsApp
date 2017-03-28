@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace NLayerDepotsApp.WEB.Models
 {
@@ -16,5 +17,6 @@ namespace NLayerDepotsApp.WEB.Models
         public string DrugTypeName { get; set; }
 
         public int? PickNumber { get; set; }
+        public List<SelectListItem> DepotsList { get; set; }
     }
 }

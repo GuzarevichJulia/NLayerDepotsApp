@@ -240,7 +240,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\DrugUnits\DisplayAll.cshtml" />
-    <Content Include="Views\DrugUnits\EditDrugUnit.cshtml" />
     <Content Include="Views\Depots\WeightInfo.cshtml" />
     <Content Include="Views\Depots\DepotsInfo.cshtml" />
     <Content Include="Views\Depots\Select.cshtml" />
@@ -249,7 +248,6 @@
     <Content Include="Views\Users\SignUp.cshtml" />
     <Content Include="Views\Users\Result.cshtml" />
     <Content Include="Views\DrugUnits\Display.cshtml" />
-    <Content Include="Views\DrugUnits\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

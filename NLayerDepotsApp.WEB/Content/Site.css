@@ -29,9 +29,18 @@ table {
 .header {
     font-weight:bold;
 }
- td {
+ td, th {
     padding-right:10px;
+    padding-top: 1%;
+    padding-left: 1.5%;
  }
+
+ .cell
+ {
+    padding-top: 1% !important;
+    padding-left: 1.5% !important;
+ }
+
 input {
     width: 150px;
 }

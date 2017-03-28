@@ -5,62 +5,55 @@
 }
 
 <h3>List of drug units</h3>
-<table class="table-bordered text-center">
-    <thead>
-        <tr>
-            <th><p>Drug Type Name</p></th>
-            <th><p>Drug Unit Id</p></th>
-            <th><p>Pick Number</p></th>
-            <th><p>Depot</p></th>
-            <th><p>Action</p></th>
-        </tr>
-    </thead>
-    @foreach (var d in Model.DrugUnits)
-    {
-        <tr>
-            <td><p>@d.DrugTypeName</p></td>
-            <td><p>@d.DrugUnitId</p></td>
-            <td><p>@d.PickNumber</p></td>
-                       
-            <input type="hidden" value="@d.DrugUnitId" name="drugUnitId" id=@d.DrugUnitId/>
-            
-            @if (d.DepotName != null)
-            {
-                <td><p> @Html.DropDownList("id", Model.DepotsList, Model.DepotsList.Where(x => x.Text == d.DepotName).First().Text, new { onchange = "changeDepot(this.options[this.selectedIndex].value)" })</p></td>
-            }
-            else
-            {
-            <td><p> @Html.DropDownList("id", Model.DepotsList) </p></td>
-            }           
-
-            <td>@Html.ActionLink("Edit depot", "EditDrugUnit", new { id = d.DrugUnitId })</td>
-        </tr>
-    }
-</table>
-
-<br/>
+<div class="table-responsive">
+    <table class="table-bordered table-striped"  style="width:100%">
+        <thead>
+            <tr>
+                <th class="cell"><p>Drug Type Name</p></th>
+                <th class="cell"><p>Drug Unit Id</p></th>
+                <th class="cell"><p>Pick Number</p></th>
+                <th class="cell"><p>Depot</p></th>
+            </tr>
+        </thead>
+        @foreach (var d in Model.DrugUnits)
+        {
+            <tr>
+                <td class="cell"><p>@d.DrugTypeName</p></td>
+                <td class="cell"><p>@d.DrugUnitId</p></td>
+                <td class="cell"><p>@d.PickNumber</p></td>
+                @{
+                    Model.DepotsList.Where(x => x.Value == d.DepotId.ToString()).FirstOrDefault().Selected = true;
+                }
+                <td class="cell"><p> @Html.DropDownList("DepotId", Model.DepotsList, new { onchange = "associateDrugUnitWithDepot(this,'" + d.DrugUnitId + "')" })</p></td>
+                @{
+                    Model.DepotsList.Where(x => x.Value == d.DepotId.ToString()).FirstOrDefault().Selected = false;
+                }
+            </tr>
+         }
+    </table>
+</div>
+<br />
 <div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Display", new { page = x}))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Display", new { page = x }))
 </div>
 
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
 
 <script>
-function change(val)
-{
-  window.location.href="/DrugUnits/Edit?id="+val;
-}
+    function associateDrugUnitWithDepot(dropDownList, drugUnitId) {
+        var url = "/DrugUnits/AssociateDrugUnitWithDepot/";
+        $.post(url, {
+            "id": dropDownList.options[dropDownList.selectedIndex].value,
+            "drugUnitId": drugUnitId
+        }, function (data) {
+        });
+    };
 </script>
 
-<script>
-    function changeDepot(strSelected/*, drugUnitId*/) {
-            var url = "/DrugUnits/Edit/";
-            $.post(url, {
-                "id": strSelected//,
-               // "drugUnitId": drugUnitId
-             }, function (data) {
-            });
-        };
-</script>
-
+<style>
+    .cell{
+        padding-top: 1%; 
+        padding-left: 1%;
+    }
+</style>

@@ -45,42 +45,15 @@ namespace NLayerDepotsApp.WEB.Controllers
             DrugUnitIndexViewModel drugUnitsIndex = new DrugUnitIndexViewModel
             {
                 PageInfo = pageInfo,
-                DrugUnits = drugUnits
+                DrugUnits = drugUnits,
+                DepotsList = drugUnitService.GetDepotsList()
             };
-            var defEl = new SelectListItem { Text = "Not Selected", Value = "0" };
-            List<SelectListItem> newList = drugUnitService.GetDepotsList().ToList();
-            newList.Insert(0, defEl);
-            drugUnitsIndex.DepotsList = new SelectList(newList, "Value", "Text");
-
             return View(drugUnitsIndex);
-        }
-        
+        }        
           
-        public ActionResult Edit(int? id, string drugUnitId="10")
+        public void AssociateDrugUnitWithDepot(int? id, string drugUnitId)
         {
             drugUnitService.Edit((int)id, drugUnitId);
-            var res = 1;
-            return Json(res, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public ActionResult EditDrugUnit(string id)
-        {
-            var editingDrugUnit = new EditingDrugUnitViewModel
-            {
-                DepotsList = drugUnitService.GetDepotsList(),
-                DrugUnitId = id
-            };
-            return View(editingDrugUnit);
-        }
-        
-        [HttpPost]
-        public ActionResult EditDrugUnit(DrugUnitViewModel drugUnit)
-        {
-            Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitViewModel, DrugUnitDTO>());
-            var drugUnitDto = Mapper.Map<DrugUnitViewModel, DrugUnitDTO>(drugUnit);
-            drugUnitService.Edit((int)drugUnitDto.DepotId, drugUnitDto.DrugUnitId);
-            return RedirectToAction("Display");
-        }
+        }        
     }
 }

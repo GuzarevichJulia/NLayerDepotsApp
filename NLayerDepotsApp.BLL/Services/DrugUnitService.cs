@@ -21,9 +21,16 @@ namespace NLayerDepotsApp.BLL.Services
             Database = uow;
         }
 
-        public SelectList GetDepotsList()
+        public List<SelectListItem> GetDepotsList()
         {
-            return new SelectList(Database.Depots.GetAll(), "DepotId", "DepotName");
+            var depotsList = Database.Depots.GetAll().ToList();
+            var selectListItem = new List<SelectListItem>();
+            selectListItem.Add(new SelectListItem { Selected = false, Text = "Not selected", Value = "0" });
+            foreach (var d in depotsList)
+            {
+                selectListItem.Add(new SelectListItem { Selected = false, Text = d.DepotName, Value = d.DepotId.ToString()});
+            }
+            return selectListItem;
         } 
 
         public void Edit(int id, string drugUnitId)

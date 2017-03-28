@@ -1,0 +1,9 @@
+﻿@model NLayerDepotsApp.WEB.Models.DepotDropDownListViewModel
+
+@{
+    Model.DepotsList.Where(x => x.Value == Model.DepotId.ToString()).FirstOrDefault().Selected = true;
+}
+<td><p> @Html.DropDownList("DepotId", Model.DepotsList, new { onchange = "associateDrugUnitWithDepot(this,'" + Model.DrugUnitId + "')" })</p></td>
+@{
+    Model.DepotsList.Where(x => x.Value == Model.DepotId.ToString()).FirstOrDefault().Selected = false;
+}

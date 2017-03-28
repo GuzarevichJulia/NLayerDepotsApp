@@ -13,7 +13,7 @@ namespace NLayerDepotsApp.BLL.Interfaces
         IEnumerable<DrugUnitDTO> GetDrugUnits(int skipCount = 0, int? drugUnitCount = null);
         DrugUnitDTO GetDrugUnit(string id);
         int GetDrugUnitsCount();
-        SelectList GetDepotsList();
+        List<SelectListItem> GetDepotsList();
         void Edit(int id, string drugUnitId);
         void Dispose();
     }
