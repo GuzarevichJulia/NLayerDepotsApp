@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Drugs App</title>
+    <link rel="stylesheet" href="~/Content/Site.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -24,13 +25,12 @@
                     <li>@Html.ActionLink("Depots info", "DepotsInfo", "Depots")</li>
                     <li>@Html.ActionLink("Send", "Select", "Depots")</li>
                     <li>@Html.ActionLink("Weight info", "WeightInfo", "Depots")</li>
-                    <li>@Html.ActionLink("All drug units", "DisplayAll", "DrugUnits")</li>
                     <li>@Html.ActionLink("Sign up", "SignUp", "Users")</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content" style="margin-top : 8%">
+    <div class="container body-content" style="margin-top : 5%">
         @RenderBody()
         <hr />
         <footer>

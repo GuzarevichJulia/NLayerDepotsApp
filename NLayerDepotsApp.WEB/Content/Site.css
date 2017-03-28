@@ -25,6 +25,7 @@ nav{
 table {
    vertical-align:middle;
    text-align:left;  
+   width: 100%
  }
 .header {
     font-weight:bold;

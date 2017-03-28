@@ -20,14 +20,6 @@ namespace NLayerDepotsApp.WEB.Controllers
             drugUnitService = service;
         }
 
-        public ActionResult DisplayAll()
-        {
-            IEnumerable<DrugUnitDTO> drugUnitsDto = drugUnitService.GetDrugUnits();
-            Mapper.Initialize(cfg => cfg.CreateMap<DrugUnitDTO, DrugUnitViewModel>());
-            var drugUnits = Mapper.Map<IEnumerable<DrugUnitDTO>, List<DrugUnitViewModel>>(drugUnitsDto);
-            return View(drugUnits);
-        }
-
         [HttpGet]
         public ActionResult Display(int page = 1)
         {
